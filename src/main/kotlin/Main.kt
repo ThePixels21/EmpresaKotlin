@@ -1,7 +1,16 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import model.Cliente
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+    val a = 12
+    val b = 3
+    val resultado = dividir(a, b)
+    println("$a / $b = $resultado")
+}
+fun dividir(a: Int, b: Int): Int {
+    if (a >= b) {
+        val resta = a - b
+        return dividir(resta, b) + 1
+    } else {
+        return 0
+    }
 }
