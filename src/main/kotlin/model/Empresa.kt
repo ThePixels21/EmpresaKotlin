@@ -1,10 +1,12 @@
 package model
 
+import java.util.Optional
+
 class Empresa (
     private var razonSocial: String,
     private val nit: Long,
     private var direccion: String,
-    private val personas: List<Persona> = mutableListOf()) {
+    private val personas: MutableList<Persona> = mutableListOf()) {
 
     fun obtenerNominaEmpresa(): Double {
         var nomina: Double = 0.0
@@ -22,6 +24,89 @@ class Empresa (
             }
         }
         return nomina
+    }
+
+    fun buscarEmpleado (documento : Long) : Empleado? {
+        for (empleado in personas.filterIsInstance<Empleado>()) {
+            if(empleado.getDocumento() == documento) {
+                return empleado
+            }
+        }
+        return null
+    }
+
+    fun registrarEmpleado (empleado : Empleado?) : Boolean{
+        if(empleado != null && this.buscarEmpleado(empleado.getDocumento()) == null) {
+            this.personas.add(empleado)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    fun eliminarEmpleado(documento : Long) : Boolean {
+        var empleado : Empleado? = this.buscarEmpleado(documento)
+        if(empleado != null) {
+            return personas.remove(empleado)
+        } else {
+            return false
+        }
+    }
+
+    fun editarEmpleado (empleado : Empleado?) : Boolean {
+        if(empleado != null) {
+            var empleadoExistente : Empleado? = this.buscarEmpleado(empleado.getDocumento())
+            if(empleadoExistente != null) {
+                empleadoExistente.setNombre(empleado.getNombre())
+                empleadoExistente.setCorreo(empleado.getCorreo())
+                empleadoExistente.setCargo(empleado.getCargo())
+                empleadoExistente.setDependencia(empleado.getDependencia())
+                empleadoExistente.setSalarioUnico(empleado.getSalarioUnico())
+                return true
+            }
+        }
+        return false
+    }
+
+    fun buscarCliente (documento : Long) : Cliente? {
+        for (cliente in personas.filterIsInstance<Cliente>()) {
+            if(cliente.getDocumento() == documento) {
+                return cliente
+            }
+        }
+        return null
+    }
+
+    fun registrarCliente (cliente : Cliente?) : Boolean {
+        if(cliente != null && this.buscarCliente(cliente.getDocumento()) == null) {
+            this.personas.add(cliente)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    fun eliminarCliente (documento : Long) : Boolean {
+        var cliente : Cliente? = this.buscarCliente(documento)
+        if(cliente != null) {
+            return personas.remove(cliente)
+        } else {
+            return false
+        }
+    }
+
+    fun editarCliente (cliente : Cliente?) : Boolean {
+        if(cliente != null) {
+            var clienteExistente : Cliente? = this.buscarCliente(cliente.getDocumento())
+            if(clienteExistente != null) {
+                clienteExistente.setNombre(cliente.getNombre())
+                clienteExistente.setCorreo(cliente.getCorreo())
+                clienteExistente.setDireccion(cliente.getDireccion())
+                clienteExistente.setTelefono(cliente.getTelefono())
+                return true
+            }
+        }
+        return false
     }
 
     fun getRazonSocial () : String {
@@ -54,37 +139,5 @@ class Empresa (
 
     fun setDireccion (direccion : String) {
         this.direccion = direccion
-    }
-
-    fun buscarEmpleado (id : Long) : Empleado {
-        return null!!
-    }
-
-    fun registrarEmpleado (empleado : Empleado) : Boolean{
-        return true
-    }
-
-    fun eliminarEmpleado(id : Long) : Boolean {
-        return true
-    }
-
-    fun editarEmpleado (empleado : Empleado) : Boolean {
-        return true
-    }
-
-    fun buscarCliente (id : Long) : Cliente {
-        return null!!
-    }
-
-    fun registrarCliente (cliente : Cliente) : Boolean {
-        return true
-    }
-
-    fun eliminarCliente (id : Long) : Boolean {
-        return true
-    }
-
-    fun editarCliente (cliente : Cliente) : Boolean {
-        return true
     }
 }
