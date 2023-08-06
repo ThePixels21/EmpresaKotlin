@@ -1,9 +1,9 @@
 package model
 
 open class Persona (
-    protected var nombre: String,
-    protected val documento: Long,
-    protected var correo: String) {
+    private var nombre: String,
+    private val documento: Long,
+    private var correo: String) {
 
     fun getNombre () : String {
         return this.nombre

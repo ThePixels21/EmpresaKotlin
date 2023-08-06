@@ -1,8 +1,8 @@
 package model
 
 class Cargo (
-    val nombre: String,
-    var nivel: Int) {
+    private val nombre: String,
+    private var nivel: Int) {
 
     fun getNombre () : String {
         return this.nombre

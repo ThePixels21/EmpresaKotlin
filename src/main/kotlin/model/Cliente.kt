@@ -4,8 +4,8 @@ class Cliente (
     nombre: String,
     documento: Long,
     correo: String,
-    var direccion: String,
-    var telefono: String)
+    private var direccion: String,
+    private var telefono: String)
     : Persona(nombre, documento, correo) {
 
         fun getDireccion () : String {
