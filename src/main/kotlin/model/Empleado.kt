@@ -6,8 +6,35 @@ class Empleado (
     correo: String,
     private var salarioUnico: Double,
     private var dependencia: Dependencia,
-    private val subordinados: List<Empleado> = mutableListOf(),
+    private val subordinados: MutableList<Empleado> = mutableListOf(),
     private var cargo: Cargo) : Persona(nombre, documento, correo) {
+
+        fun buscarSubordinado(documento : Long) : Empleado? {
+            for (subordinado in subordinados) {
+                if (subordinado.getDocumento() == documento) {
+                    return subordinado
+                }
+            }
+            return null
+        }
+
+        fun aniadirSubordinado(empleado: Empleado) : Boolean {
+            val subordinado = buscarSubordinado(empleado.getDocumento())
+            if(subordinado == null) {
+                return subordinados.add(empleado)
+            } else {
+                return false
+            }
+        }
+
+        fun eliminarSubordinado(documento : Long) : Boolean {
+            val subordinado = buscarSubordinado(documento)
+            if(subordinado != null) {
+                return subordinados.remove(subordinado)
+            } else {
+                return false
+            }
+        }
 
         fun getSalarioUnico () : Double {
             return this.salarioUnico

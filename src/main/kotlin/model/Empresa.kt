@@ -109,6 +109,17 @@ class Empresa (
         return false
     }
 
+    fun aniadirSubordinado (documentoEmpleado: Long, documentoSubordinado : Long) : Boolean {
+        if(documentoEmpleado != documentoSubordinado) {
+            var empleadoRegistrado = this.buscarEmpleado(documentoEmpleado)
+            var subordinadoRegistrado = this.buscarEmpleado(documentoSubordinado)
+            if(empleadoRegistrado != null && subordinadoRegistrado != null) {
+                return empleadoRegistrado.aniadirSubordinado(subordinadoRegistrado)
+            }
+        }
+        return false
+    }
+
     fun getRazonSocial () : String {
         return this.razonSocial
     }
