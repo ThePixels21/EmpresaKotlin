@@ -19,7 +19,7 @@ class Empresa (
     fun obtenerNominaDependencia(dependencia: Dependencia): Double {
         var nomina: Double = 0.0
         for (empleado in personas.filterIsInstance<Empleado>()) {
-            if (empleado.getDependencia() == dependencia) {
+            if (empleado.getDependencia().getNombre() == dependencia.getNombre()) {
                 nomina += empleado.getSalarioUnico()
             }
         }
@@ -47,10 +47,15 @@ class Empresa (
     fun eliminarEmpleado(documento : Long) : Boolean {
         var empleado : Empleado? = this.buscarEmpleado(documento)
         if(empleado != null) {
-            return personas.remove(empleado)
+            if(personas.size>1) {
+                return personas.remove(empleado)
+            } else {
+                println("La empresa debe tener al menos un empleado")
+            }
         } else {
-            return false
+            println("No se encontró")
         }
+        return false
     }
 
     fun editarEmpleado (empleado : Empleado?) : Boolean {
