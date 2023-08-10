@@ -1,12 +1,18 @@
 package model
 
-import java.util.Optional
+import java.util.*
 
 class Empresa (
     private var razonSocial: String,
     private val nit: Long,
     private var direccion: String,
     private val personas: MutableList<Persona> = mutableListOf()) {
+
+    init {
+        personas.add(Empleado("Santiago",
+            1010, "santiqrdev@gmail.com", 999.0,
+            Dependencia("admin"), Cargo("boss", 10)))
+    }
 
     fun obtenerNominaEmpresa(): Double {
         var nomina: Double = 0.0
@@ -19,7 +25,7 @@ class Empresa (
     fun obtenerNominaDependencia(dependencia: Dependencia): Double {
         var nomina: Double = 0.0
         for (empleado in personas.filterIsInstance<Empleado>()) {
-            if (empleado.getDependencia().getNombre() == dependencia.getNombre()) {
+            if (empleado.getDependencia().getNombre().lowercase(Locale.getDefault()) == dependencia.getNombre().lowercase()) {
                 nomina += empleado.getSalarioUnico()
             }
         }

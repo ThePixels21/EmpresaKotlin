@@ -6,8 +6,8 @@ class Empleado (
     correo: String,
     private var salarioUnico: Double,
     private var dependencia: Dependencia,
-    private val subordinados: MutableList<Empleado> = mutableListOf(),
-    private var cargo: Cargo) : Persona(nombre, documento, correo) {
+    private var cargo: Cargo,
+    private val subordinados: MutableList<Empleado> = mutableListOf()) : Persona(nombre, documento, correo) {
 
         fun buscarSubordinado(documento : Long) : Empleado? {
             for (subordinado in subordinados) {
